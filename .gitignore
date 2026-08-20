@@ -1,0 +1,9 @@
+# Backup files
+backups/*.sql
+backups/*.sql.gz
+backups/*.log
+
+# Python cache & virtualenv
+__pycache__/
+*.pyc
+.env

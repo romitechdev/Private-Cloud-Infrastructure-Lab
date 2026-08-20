@@ -1,0 +1,41 @@
+---
+- name: Provisioning Private Cloud Lab VM
+  hosts: local
+  become: true
+
+  tasks:
+    - name: 1. Pastikan package penting terinstall
+      apt:
+        name:
+          - curl
+          - git
+          - ufw
+          - docker.io
+          - docker-compose-v2
+        state: present
+        update_cache: yes
+
+    - name: 2. Pastikan service Docker running dan enable on boot
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: 3. Konfigurasi Firewall Rule (UFW)
+      ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: tcp
+        comment: "{{ item.comment }}"
+      loop:
+        - { port: '22', comment: 'SSH' }
+        - { port: '80', comment: 'HTTP Nginx' }
+        - { port: '443', comment: 'HTTPS' }
+        - { port: '3001', comment: 'Grafana' }
+        - { port: '9090', comment: 'Prometheus' }
+
+    - name: 4. Aktifkan Firewall UFW
+      ufw:
+        state: enabled
+        default: deny
+        direction: incoming
