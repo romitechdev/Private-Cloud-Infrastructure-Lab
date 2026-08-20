@@ -8,9 +8,9 @@ import psycopg2
 PORT = 8000
 
 DB_CONFIG = {
-    "dbname": "infradb",
-    "user": "infrauser",
-    "password": "pancurhitz",
+    "dbname": os.environ.get("POSTGRES_DB", "infradb"),
+    "user": os.environ.get("POSTGRES_USER", "infrauser"),
+    "password": os.environ.get("POSTGRES_PASSWORD", ""),
     "host": os.environ.get("DB_HOST", "postgres"),
     "port": 5432
 }
