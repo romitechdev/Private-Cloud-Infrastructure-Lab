@@ -64,3 +64,7 @@ scripts/backup.sh
 - Backend mounts `/proc` read-only to read host uptime, load, and memory
 - Node Exporter mounts `/proc`, `/sys`, and `/` read-only for host metrics
 - Backup retention: 7 days, managed by `backup.sh`
+
+<!-- last-updated -->
+_Last updated: 2026-09-05_
+
